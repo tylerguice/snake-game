@@ -1,3 +1,10 @@
-<canvas #gameCanvas width="400" height="400"></canvas>
+<div class="game-board-container">
+    <div class="score-container">
+        Score: {{currentScore}}
+    </div>
 
-<button mat-raised-button color="primary" (click)="startGame()">Restart</button>
+    <canvas #gameCanvas width="400" height="400"></canvas>
+
+    <button mat-raised-button color="primary" (click)="startGame()">Restart</button>
+</div>
+
