@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-control-panel',
   imports: [],
-  templateUrl: './control-panel.html',
-  styleUrl: './control-panel.scss'
+  templateUrl: './control-panel.component.html',
+  styleUrl: './control-panel.component.scss'
 })
 export class ControlPanel {
 

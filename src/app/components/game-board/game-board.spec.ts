@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GameBoard } from './game-board';
+import { GameBoard } from './game-board.component';
 
 describe('GameBoard', () => {
   let component: GameBoard;

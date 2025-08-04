@@ -1,8 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { ControlPanel } from "./components/control-panel/control-panel";
-import { GameBoard } from './components/game-board/game-board';
+import { ControlPanel } from "./components/control-panel/control-panel.component";
+import { GameBoard } from './components/game-board/game-board.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,8 +18,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatToolbarModule
   ],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
 export class App {
   protected readonly title = signal('snake-game');

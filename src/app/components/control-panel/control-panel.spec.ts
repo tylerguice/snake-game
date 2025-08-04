@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ControlPanel } from './control-panel';
+import { ControlPanel } from './control-panel.component';
 
 describe('ControlPanel', () => {
   let component: ControlPanel;
