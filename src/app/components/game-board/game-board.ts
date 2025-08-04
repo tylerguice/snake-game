@@ -1,4 +1,6 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import Hammer from 'hammerjs';
+
 import { MatButtonModule } from '@angular/material/button';
 
 type Direction = 'up' | 'down' | 'left' | 'right';
@@ -36,6 +38,14 @@ export class GameBoard implements AfterViewInit {
     const canvas = this.canvasRef.nativeElement;
     this.ctx = canvas.getContext('2d')!;
     this.startGame();
+
+    const hammer = new Hammer(this.canvasRef.nativeElement);
+
+    hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    hammer.on('swipeleft', () => this.setDirection('left'));
+    hammer.on('swiperight', () => this.setDirection('right'));
+    hammer.on('swipeup', () => this.setDirection('up'));
+    hammer.on('swipedown', () => this.setDirection('down'));
   }
 
   private gameLoop = (timestamp: number) => {
@@ -143,6 +153,19 @@ private updateSnake() {
     } while (this.snake.some(segment => this.isSamePosition(segment, position)));
 
     return position;
+  }
+
+  private setDirection(newDir: 'up' | 'down' | 'left' | 'right') {
+    const opposite = {
+      up: 'down',
+      down: 'up',
+      left: 'right',
+      right: 'left'
+    };
+
+    if (this.direction !== opposite[newDir]) {
+      this.direction = newDir;
+    }
   }
 
   @HostListener('window:keydown', ['$event'])
