@@ -1,0 +1,13 @@
+<div class="game-over-dialog">
+    <h2 mat-dialog-title>Game Over</h2>
+
+    <mat-dialog-content>
+    <p>Your final score is: <strong>{{ data.finalScore }}</strong></p>
+    <p>Would you like to play again?</p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close()">Close</button>
+    <button mat-raised-button color="primary" (click)="restartGame()">Restart</button>
+    </mat-dialog-actions>
+</div>

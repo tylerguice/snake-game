@@ -2,8 +2,10 @@ import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild, HostListene
 import { CommonModule } from '@angular/common';
 import { GameService, Point, Direction } from '../../services/game.service';
 import { Subscription } from 'rxjs';
+import { GameOverDialogComponent } from '../game-over-dialog/game-over-dialog.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-game-board',
@@ -21,7 +23,10 @@ export class GameBoard implements AfterViewInit, OnDestroy {
   private ctx!: CanvasRenderingContext2D;
   private subs: Subscription[] = [];
 
-  constructor(private gameService: GameService) {}
+  constructor(
+    private gameService: GameService,
+    private dialog: MatDialog
+  ) {}
 
   ngAfterViewInit() {
     this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
@@ -34,7 +39,7 @@ export class GameBoard implements AfterViewInit, OnDestroy {
       this.gameService.score$.subscribe(score => this.currentScore = score),
       this.gameService.isGameOver$.subscribe(isOver => {
         if (isOver) {
-          alert('Game Over! Score: ' + this.gameService.score$);
+          this.handleGameOver();
         }
       }),
     );
@@ -127,6 +132,22 @@ export class GameBoard implements AfterViewInit, OnDestroy {
     ctx.lineTo(x, y + radius);
     ctx.quadraticCurveTo(x, y, x + radius, y);
     ctx.closePath();
+  }
+
+  private handleGameOver() {
+    const dialogRef = this.dialog.open(GameOverDialogComponent, {
+      width: '450px',
+      disableClose: true,
+      data: {
+        finalScore: this.currentScore
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'restart') {
+        this.startGame();
+      }
+    });
   }
 
   @HostListener('window:keydown', ['$event'])
